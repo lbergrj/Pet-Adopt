@@ -1,7 +1,8 @@
-public with sharing class SerchPetsService {
+public with sharing class RequestService {
 
+    // Test covered by RequestService.getPetsSerchedTest
     @AuraEnabled
-    public static string getPetsSerched(Id requestId){
+    public static String getPetsSerched(Id requestId){
         PetsFoundVO data ;
         try {
             //Busca das informacôes da Requisição
@@ -20,21 +21,20 @@ public with sharing class SerchPetsService {
                         pets.add(pet);
                     }
                 }
+                
                 System.debug('Pets: ' + pets);
 
-                // Formatar dados de saída
+                // Formatar JSON de saída
                 data = new PetsFoundVO(request,pets);
                 System.debug('Saida Formatada: ' + data);
-
-
             }
 
         } catch (Exception e) {
             data = new PetsFoundVO();
-            throw new AuraHandledException(e.getMessage());
-            
-            
+            throw new AuraHandledException(e.getMessage());            
         }
+        System.debug( 'JSON de Saída :' + JSON.serialize(data));
+
         return JSON.serialize(data);
     }
     
@@ -49,7 +49,8 @@ public with sharing class SerchPetsService {
         public PetsFoundVO(){
             this.result = 'NOK';
         }
-     
+
+        // Test covered by RequestService.getPetsSerchedTest
         public PetsFoundVO(Request__c request, List<Pet__c> pets) {
             this.listPet = new List<PetVO>();
             this.quantidy = 0;

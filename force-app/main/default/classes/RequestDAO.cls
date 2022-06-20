@@ -1,5 +1,6 @@
 public with sharing class RequestDAO {
     
+    // Test covered by RequestService.getPetsSerchedTest
     public static Request__c getRequestById(Id requestId){
         return [Select Id, Name,  ForFlat__c, MaxAge__c, MinAge__c, PetSize__c, PetType__c, Status__c, State__c,
                         Candidate__c, Candidate__r.Name, Candidate__r.MailingState, Candidate__r.MailingCity,  Candidate__r.MailingStreet,
